@@ -95,13 +95,37 @@ void createArr(int arr[20], int len);
  */
 
 void printArr(int arr[], int len);
+/* Prints out all the values within the input array.
+ * Arguments: arr[]: input array.
+ *            len: the size of the array passed in.
+ */
+
+void printMin(int arr[], int len, int& val, int& pos);
+/* Prints out the minimum value of the array and the location of the value within the input array.
+ * Arguments: arr[]: input array.
+ * 			  len: the size of the array passed in.
+ * 			  &val: value of the array passed by reference, -1 by default.
+ * 			  &pos: position of the array within the array, -1 by default.
+ */
+
+void printAddresses(int arr[], int len);
+/* Returns the addresses of every member(integers) within the array.
+ * Arguments: arr[]: input array of integers.
+ *  		  len: the size of the array passed in.
+ */
+
+void printDoubleAddresses(double arr[], int len);
+/* Returns the addresses of every member(doubles) within the array.
+ * Arguments: arr[]: input array of doubles.
+ *  		  len: the size of the array passed in.
+ */
 
 // Testing Arrays
 int arr1[] = {1, 2, 3, 4, 5};
 int arr2[] = {9, 14, 88, 4, 10, 12};
 int arr3[] = {25, 6, 6, 7, 22, -1};
 int arr4[] = {4};
-int arr5[20];
+int arr5[] = {14, 10, 7, 8, 5};
 
 
 // Test Cases and Variables
@@ -230,6 +254,46 @@ int main() {
 	cout << "****************************************" << endl;
 
 	cout << "Problem 7" << endl;
+	int val1=-1, pos1=-1, val2=-1, pos2=-1, val3=-1, pos3=-1;
+	cout << "Test 1: " << endl;
+	cout << "Before the modification, the initial value of the minimum value is: " << val1 << ", " << endl;
+	cout << "the initial position of the minimum value is: " << pos1 << endl;
+	cout << "After the modification..." << endl;
+	printMin(arr1, 5, val1, pos1); // Expected value output is 1, with a position of 0.
+	cout << endl;
+	cout << "Test 2: " << endl;
+	cout << "Before the modification, the initial value of the minimum value is: " << val2 << ", " << endl;
+	cout << "the initial position of the minimum value is: " << pos2 << endl;
+	cout << "After the modification..." << endl;
+	printMin(arr2, 6, val2, pos2); // Expected value output is 4, with a position of 3.
+	cout << endl;
+	cout << "Test 3: " << endl;
+	cout << "Before the modification, the initial value of the minimum value is: " << val3 << ", " << endl;
+	cout << "the initial position of the minimum value is: " << pos3 << endl;
+	cout << "After the modification..." << endl;
+	printMin(arr5, 5, val3, pos3); // Expected value output is 5, with a position of 4.
+	cout << "****************************************" << endl;
+
+	cout << "Problem 8" << endl;
+	cout << "Test 1: " << endl;
+	printAddresses(arr1, 5); // Expected output of an array of the addresses of values in arr1.
+	cout << "Test 2: " << endl;
+	printAddresses(arr2, 6); // Expected output of an array of the addresses of values in arr2.
+	cout << "Test 3: " << endl;
+	printAddresses(arr3, 6); // Expected output of an array of the addresses of values in arr3.
+	cout << "****************************************" << endl;
+
+	cout << "Problem 9" << endl;
+	double Darr1[] = {1.2, 3.6, 7.4, 6.8, 11.2, 88.1};
+	double Darr2[] = {3.7, 11.0, 2.4, 4.5, 9.9};
+	double Darr3[] = {4.1, 3.8, 2.2, 8.3, 23.1};
+	cout << "Test 1: " << endl;
+	printDoubleAddresses(Darr1, 6); // Expected output of an array of the addresses of values in Darr1.
+	cout << "Test 2: " << endl;
+	printDoubleAddresses(Darr2, 5); // Expected output of an array of the addresses of values in Darr2.
+	cout << "Test 3: " << endl;
+	printDoubleAddresses(Darr3, 5); // Expected output of an array of the addresses of values in Darr3.
+	cout << "****************************************" << endl;
 
 	return 0;
 
@@ -431,4 +495,50 @@ void printArr(int arr[], int len) {
 			cout << arr[i] << ", ";
 		}
 	}
+}
+
+// Problem 7
+void printMin(int arr[], int len, int& val, int& pos) {
+	int min = arr[0];
+	for (int i=0; i<len; i++) {
+		if (arr[i] < min) {
+			min = arr[i];
+		}
+	}
+	val = min;
+	for (int i=0; i<len; i++) {
+		if (arr[i] == min) {
+			pos = i;
+		}
+	}
+	cout << "The value of the minimum value in this array is: " << val << endl;
+	cout << "The location of this value is: " << pos << endl;
+}
+
+// Problem 8
+void printAddresses(int arr[], int len) {
+	cout << "{";
+	for (int i=0; i<len; i++) {
+		if (i<len-1) {
+			cout << &arr[i] << ", ";
+		}
+		else {
+			cout << &arr[i];
+		}
+	}
+	cout << "}" << endl;
+}
+
+// Problem 9
+void printDoubleAddresses(double arr[], int len) {
+	cout << "{";
+	for (int i=0; i<len; i++) {
+		if (i<len-1) {
+			cout << &arr[i] << ", ";
+		}
+		else {
+			cout << &arr[i];
+		}
+	}
+	cout << "}" << endl;
 }
