@@ -109,16 +109,28 @@ void printMin(int arr[], int len, int& val, int& pos);
  */
 
 void printAddresses(int arr[], int len);
-/* Returns the addresses of every member(integers) within the array.
+/* Prints out the addresses of every member(integers) within the array.
  * Arguments: arr[]: input array of integers.
  *  		  len: the size of the array passed in.
  */
 
 void printDoubleAddresses(double arr[], int len);
-/* Returns the addresses of every member(doubles) within the array.
+/* Prints out the addresses of every member(doubles) within the array.
  * Arguments: arr[]: input array of doubles.
  *  		  len: the size of the array passed in.
  */
+
+int compareSum(int arrx[], int arry[], int lenx, int leny, int* sumx, int* sumy);
+/* Returns an integer determining whether the sum of the first array is greater than, less than
+ * or equal to the second array.
+ * Arguments: arrx[]: first input array.
+ *            arry[]: second input array.
+ *            lenx: the size of the first array.
+ *            leny: the size of the second array.
+ *            *sumx: sum of the first array as a pointer, 0 by default.
+ *            *sumy: sum of the second array as a pointer, 0 by default.
+ */
+
 
 // Testing Arrays
 int arr1[] = {1, 2, 3, 4, 5};
@@ -172,42 +184,46 @@ int main() {
 
 	cout << "Part II" << endl;
 	cout << "Problem 1" << endl;
-	int a1 = 35;
-	int b1 = 20;
-	int a2 = 12;
-	int b2 = 24;
-	int a3 = 11;
-	int b3 = 11;
-	cout << "Case 1: If the first integer passed in is greater than the second integer: " << endl;
+	int a1 = (rand() % 100 + 1)/2;
+	int b1 = (rand() % 100 + 1)/2;
+	int a2 = (rand() % 100 + 1)/2;
+	int b2 = (rand() % 100 + 1)/2;
+	int a3 = (rand() % 100 + 1)/2;
+	int b3 = (rand() % 100 + 1)/2;
+	cout << "Case 1: If the first integer passed in is less than the second integer: " << endl;
 	cout << "Before the function call, a1=" << a1 << ", b1=" << b1 << "." << endl;
-	cout << order1(&a1, &b1) << endl; // Expected output is 0, meaning false. Two values swap.
+	cout << order1(&a1, &b1) << endl; // Expected output is 1, meaning true. Two values don't swap.
 	cout << "After the function call, a1=" << a1 << ", b1=" << b1 << "." << endl;
-	cout << "Case 2: If the first integer passed in is less than the second integer: " << endl;
+	cout << endl;
+	cout << "Case 2: If the first integer passed in is greater than the second integer: " << endl;
 	cout << "Before the function call, a2=" << a2 << ", b2=" << b2 << "." << endl;
-	cout << order1(&a2, &b2) << endl; // Expected output is 1, meaning true. Two values don't swap.
+	cout << order1(&a2, &b2) << endl; // Expected output is 0, meaning false. Two values swap.
 	cout << "After the function call, a2=" << a2 << ", b2=" << b2 << "." << endl;
-	cout << "Case 3: If the first integer passed in is equal to the second integer: " << endl;
+	cout << endl;
+	cout << "Case 3: If the first integer passed in is greater than the second integer: " << endl;
 	cout << "Before the function call, a3=" << a3 << ", b3=" << b3 << "." << endl;
-	cout << order1(&a3, &b3) << endl; // Expected output is 1, meaning true. Two values don't swap.
+	cout << order1(&a3, &b3) << endl; // Expected output is 0, meaning false. Two values swap.
 	cout << "After the function call, a3=" << a3 << ", b3=" << b3 << "." << endl;
 	cout << "****************************************" << endl;
 
 	cout << "Problem 2" << endl;
-	int a4 = 40;
-	int b4 = 15;
-	int a5 = 22;
-	int b5 = 47;
-	int a6 = 27;
-	int b6 = 27;
+	int a4 = (rand() % 100 + 1)/2;
+	int b4 = (rand() % 100 + 1)/2;
+	int a5 = (rand() % 100 + 1)/2;
+	int b5 = (rand() % 100 + 1)/2;
+	int a6 = (rand() % 100 + 1)/2;
+	int b6 = (rand() % 100 + 1)/2;
 	cout << "Case 1: If the first integer passed in is greater than the second integer: " << endl;
 	cout << "Before the function call, a4=" << a4 << ", b4=" << b4 << "." << endl;
 	cout << order2(a4, b4) << endl; // Expected output is 0, meaning false. Two values swap.
 	cout << "After the function call, a4=" << a4 << ", b4=" << b4 << "." << endl;
+	cout << endl;
 	cout << "Case 2: If the first integer passed in is less than the second integer: " << endl;
 	cout << "Before the function call, a5=" << a5 << ", b5=" << b5 << "." << endl;
 	cout << order2(a5, b5) << endl; // Expected output is 1, meaning true. Two values don't swap.
 	cout << "After the function call, a5=" << a5 << ", b5=" << b5 << "." << endl;
-	cout << "Case 3: If the first integer passed in is equal to the second integer: " << endl;
+	cout << endl;
+	cout << "Case 3: If the first integer passed in is less than the second integer: " << endl;
 	cout << "Before the function call, a6=" << a6 << ", b6=" << b6 << "." << endl;
 	cout << order2(a6, b6) << endl; // Expected output is 1, meaning true. Two values don't swap.
 	cout << "After the function call, a6=" << a6 << ", b6=" << b6 << "." << endl;
@@ -294,6 +310,50 @@ int main() {
 	cout << "Test 3: " << endl;
 	printDoubleAddresses(Darr3, 5); // Expected output of an array of the addresses of values in Darr3.
 	cout << "****************************************" << endl;
+
+	cout << "Problem 10" << endl;
+	int sum1_i = 0, sum2_i = 0;
+	int arr6[] = {4, 3, 2, 1, 5};
+	int arr7[] = {1, 5, 3, 6};
+	int arr8[] = {4, 13, 9, 2, 3};
+	cout << "Test 1: " << endl;
+	cout << "Before the modification, the initial sum of the first array is: " << sum1_i << endl;
+	cout << "The initial sum of the second array is: " << sum2_i << "." << endl;
+	cout << compareSum(arr6, arr7, 5, 4, &sum1_i, &sum2_i); // Expected output is 0.
+	cout << endl;
+	cout << "The first array passed in: ";
+	printArr(arr6, 5);
+	cout << "The second array passed in: ";
+	printArr(arr7, 4);
+	cout << "After the modification, the sum of the first array is: " << sum1_i << endl;
+	cout << "The sum of the second array is: " << sum2_i << endl;
+	cout << endl;
+	cout << "Test 2: " << endl;
+	sum1_i = 0, sum2_i = 0;
+	cout << "Before the modification, the initial sum of the first array is: " << sum1_i << endl;
+	cout << "The initial sum of the second array is: " << sum2_i << "." << endl;
+	cout << compareSum(arr6, arr8, 5, 5, &sum1_i, &sum2_i); // Expected output is -1.
+	cout << endl;
+	cout << "The first array passed in: ";
+	printArr(arr6, 5);
+	cout << "The second array passed in: ";
+	printArr(arr8, 5);
+	cout << "After the modification, the sum of the first array is: " << sum1_i << endl;
+	cout << "The sum of the second array is: " << sum2_i << endl;
+	cout << endl;
+	cout << "Test 3: " << endl;
+	sum1_i = 0, sum2_i = 0;
+	cout << "Before the modification, the initial sum of the first array is: " << sum1_i << endl;
+	cout << "The initial sum of the second array is: " << sum2_i << "." << endl;
+	cout << compareSum(arr8, arr7, 5, 4, &sum1_i, &sum2_i); // Expected output is 1.
+	cout << endl;
+	cout << "The first array passed in: ";
+	printArr(arr8, 5);
+	cout << "The second array passed in: ";
+	printArr(arr7, 4);
+	cout << "After the modification, the sum of the first array is: " << sum1_i << endl;
+	cout << "The sum of the second array is: " << sum2_i << endl;
+
 
 	return 0;
 
@@ -541,4 +601,23 @@ void printDoubleAddresses(double arr[], int len) {
 		}
 	}
 	cout << "}" << endl;
+}
+
+// Problem 10
+int compareSum(int arrx[], int arry[], int lenx, int leny, int* sumx, int* sumy) {
+	for (int i=0; i<lenx; i++) {
+		*sumx += arrx[i];
+	}
+	for (int i=0; i<leny; i++) {
+		*sumy += arry[i];
+	}
+	if (*sumx > *sumy) {
+		return 1;
+	}
+	else if (*sumx == *sumy) {
+		return 0;
+	}
+	else {
+		return -1;
+	}
 }
