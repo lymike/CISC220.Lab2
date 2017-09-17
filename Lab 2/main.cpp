@@ -8,6 +8,7 @@
 /* Michael Ly
  * TA: Eeshita Biswas
  * 9/12/17
+ * Lab 2
  * This file contains functions for Lab 2.
  */
 
@@ -40,9 +41,7 @@ int min(int arr[], int final);
  * 			  		 index would be 5.
  */
 
-bool elfish(string str, int pos, bool ctnsE, bool ctnsL, bool ctnsF);
-bool elfish2(string str, int pos, bool ctnsE, bool ctnsL, bool ctnsF);
-bool Einstr(string str, int pos, bool ctnsE);
+bool elfish2(string str, int pos);
 
 bool isPerfect(int num, int factor, int sum);
 /* Returns a boolean determining whether the input integer is a perfect number.
@@ -52,14 +51,60 @@ bool isPerfect(int num, int factor, int sum);
  * 			  sum: the sum of the factors, 0 by default.
  */
 
+void printX(int count, int row);
+/* Prints out an X shape corresponding to the input integer.
+ * Arguments: count: integer as an input.
+ * 			  row: number of rows being print out, value of 1 by default.
+ */
+void printLine(int count, int row);
+//Helper function to be called within the function above.
+
+bool order1(int* x, int* y);
+/* Returns a boolean determining whether the first integer passed in is greater or less than
+ * the second integer. If it is greater, return false and swap the two integers. If it is false,
+ * return true and the integers remain the same.
+ * Arguments: *x: a pointer that stores the address of the first integer.
+ *            *y: a pointer that stores the address of the second integer.
+ */
+
+bool order2(int& x, int& y);
+/* Returns a boolean determining whether the first integer passed in is greater or less than
+ * the second integer. If it is greater, return false and swap the two integers. If it is false,
+ * return true and the integers remain the same.
+ * Arguments: &x: reference of the first integer passed in.
+ *            &y: reference of the second integer passed in.
+ */
+
+void printAddressX(int* p);
+/* Prints out the value at the address of the input, the address in the input parameter, and the
+ * address of the input parameter.
+ * Argument: *p: a pointer that stores the address of the input.
+ *
+ */
+
+void printAddressY(int& r);
+/* Prints out the address and the value of the input parameter.
+ * Argument: &r: reference of the input.
+ */
+
+void createArr(int arr[20], int len);
+/* Creates an array with the size of 20 and fill in each slot of the array with a random integer
+ * between 0 and 100, not including 100.
+ * Arguments: arr[20]: input array with a size of 20.
+ *            len: the size of the array passed in.
+ */
+
+void printArr(int arr[], int len);
+
 // Testing Arrays
 int arr1[] = {1, 2, 3, 4, 5};
 int arr2[] = {9, 14, 88, 4, 10, 12};
 int arr3[] = {25, 6, 6, 7, 22, -1};
 int arr4[] = {4};
+int arr5[20];
 
 
-// Test Cases
+// Test Cases and Variables
 int main() {
 
 	cout << "PART I" << endl;
@@ -82,10 +127,8 @@ int main() {
 	cout << "****************************************" << endl;
 
 	cout << "Problem 4" << endl; // Not working
-	cout << elfish("selfish", 6, false, false, false) << endl;
-	cout << elfish("nick", 3, false, false, false) << endl;
-	cout << elfish2("selfish", 6, false, false, false) << endl;
-	cout << elfish2("nick", 3, false, false, false) << endl;
+	cout << elfish2("selfish", 6) << endl;
+	cout << elfish2("come", 3) << endl;
 	cout << "****************************************" << endl;
 
 	cout << "Problem 5" << endl;
@@ -94,14 +137,102 @@ int main() {
 	cout << "Test 3: " << isPerfect(496, 1, 0) << endl; // Expected output is 1, meaning true.
 	cout << "****************************************" << endl;
 
-	cout << "This is just for testing:" << endl;
-	cout << Einstr("see", 2, false) << endl;
-	cout << Einstr("eagle", 4, false) << endl;
-	cout << Einstr("constant", 7, false) << endl;
+	cout << "Problem 6" << endl;
+	cout << "Test 1: " << endl;
+	printX(5, 1); // Expected output is an X shape like the problem described in the lab.
+	cout << "Test 2: " << endl;
+	printX(6, 1); // Expected output is an X shape corresponding to the input integer.
+	cout << "Test 3: " << endl;
+	printX(3, 1); // Expected output is an X shape corresponding to the input integer.
+	cout << "****************************************" << endl;
+
+	cout << "Part II" << endl;
+	cout << "Problem 1" << endl;
+	int a1 = 35;
+	int b1 = 20;
+	int a2 = 12;
+	int b2 = 24;
+	int a3 = 11;
+	int b3 = 11;
+	cout << "Case 1: If the first integer passed in is greater than the second integer: " << endl;
+	cout << "Before the function call, a1=" << a1 << ", b1=" << b1 << "." << endl;
+	cout << order1(&a1, &b1) << endl; // Expected output is 0, meaning false. Two values swap.
+	cout << "After the function call, a1=" << a1 << ", b1=" << b1 << "." << endl;
+	cout << "Case 2: If the first integer passed in is less than the second integer: " << endl;
+	cout << "Before the function call, a2=" << a2 << ", b2=" << b2 << "." << endl;
+	cout << order1(&a2, &b2) << endl; // Expected output is 1, meaning true. Two values don't swap.
+	cout << "After the function call, a2=" << a2 << ", b2=" << b2 << "." << endl;
+	cout << "Case 3: If the first integer passed in is equal to the second integer: " << endl;
+	cout << "Before the function call, a3=" << a3 << ", b3=" << b3 << "." << endl;
+	cout << order1(&a3, &b3) << endl; // Expected output is 1, meaning true. Two values don't swap.
+	cout << "After the function call, a3=" << a3 << ", b3=" << b3 << "." << endl;
+	cout << "****************************************" << endl;
+
+	cout << "Problem 2" << endl;
+	int a4 = 40;
+	int b4 = 15;
+	int a5 = 22;
+	int b5 = 47;
+	int a6 = 27;
+	int b6 = 27;
+	cout << "Case 1: If the first integer passed in is greater than the second integer: " << endl;
+	cout << "Before the function call, a4=" << a4 << ", b4=" << b4 << "." << endl;
+	cout << order2(a4, b4) << endl; // Expected output is 0, meaning false. Two values swap.
+	cout << "After the function call, a4=" << a4 << ", b4=" << b4 << "." << endl;
+	cout << "Case 2: If the first integer passed in is less than the second integer: " << endl;
+	cout << "Before the function call, a5=" << a5 << ", b5=" << b5 << "." << endl;
+	cout << order2(a5, b5) << endl; // Expected output is 1, meaning true. Two values don't swap.
+	cout << "After the function call, a5=" << a5 << ", b5=" << b5 << "." << endl;
+	cout << "Case 3: If the first integer passed in is equal to the second integer: " << endl;
+	cout << "Before the function call, a6=" << a6 << ", b6=" << b6 << "." << endl;
+	cout << order2(a6, b6) << endl; // Expected output is 1, meaning true. Two values don't swap.
+	cout << "After the function call, a6=" << a6 << ", b6=" << b6 << "." << endl;
+	cout << "****************************************" << endl;
+
+	cout << "Problem 3" << endl;
+	int x = 7;
+	cout << "Since x=7, the address of x=" << &x << endl;
+	cout << "After passing in the address of x to the function..." << endl;
+	printAddressX(&x);
+	cout << "****************************************" << endl;
+
+	cout << "Problem 4" << endl;
+	int y = 14;
+	cout << "Since y=14, the value in y is " << y << ", and the address of y is " << &y << endl;
+	cout << "After passing in the address of y to the function..." << endl;
+	printAddressY(y);
+	cout << "****************************************" << endl;
+
+	cout << "Problem 5" << endl;
+	int fillarr[20];
+	createArr(fillarr, 20);
+	cout << "Test: the array printed out below:" << endl;
+	for (int i=0; i<20; i++) {
+		if (i == 0) {
+			cout << "{" << fillarr[i] << ", ";
+		}
+		else if (i == 19) {
+			cout << fillarr[i] << "}" << endl;
+		}
+		else {
+			cout << fillarr[i] << ", ";
+		}
+	}
+	cout << "****************************************" << endl;
 
 	cout << "Problem 6" << endl;
+	cout << "Test 1: ";
+	printArr(arr1, 5); // Expected all integers from arr1 printed out.
+	cout << "Test 2: ";
+	printArr(arr2, 6); // Expected all integers from arr2 printed out.
+	cout << "Test 3: ";
+	printArr(arr3, 6); // Expected all integers from arr3 printed out.
+	cout << "****************************************" << endl;
+
+	cout << "Problem 7" << endl;
 
 	return 0;
+
 }
 
 
@@ -141,86 +272,31 @@ int min(int arr[], int final) {
 	}
 }
 
-// Problem 4
-bool elfish(string str, int pos, bool ctnsE, bool ctnsL, bool ctnsF) {
-	if (ctnsE == false) {
-		if (pos < 0) {
-			return ctnsE;
-		}
-		else if (str[pos] == 'e') {
-			return elfish(str, pos-1, true, ctnsL, ctnsF);
-		}
-		else {
-			return elfish(str, pos-1, ctnsE, ctnsL, ctnsF);
-		}
+// Problem 4 (not working)
+bool elfish2(string str, int pos) {
+	bool ctnsE=false, ctnsL=false, ctnsF=false;
+	if (pos < 0) {
+		return ctnsE;
+		return ctnsL;
+		return ctnsF;
 	}
-	else if (ctnsL == false) {
-		if (pos < 0) {
-			return ctnsL;
-		}
-		else if (str[pos] == 'l') {
-			return elfish(str, pos-1, ctnsE, true, ctnsF);
-		}
-		else {
-			return elfish(str, pos-1, ctnsE, ctnsL, ctnsF);
-		}
+	else if (str[pos] == 'e') {
+		ctnsE = true;
 	}
-	else if (ctnsF == false) {
-		if (pos < 0) {
-			return ctnsF;
-		}
-		else if (str[pos] == 'f') {
-			return elfish(str, pos-1, ctnsE, ctnsL, true);
-		}
-		else {
-			return elfish(str, pos-1, ctnsE, ctnsL, ctnsF);
-		}
+	else if (str[pos] == 'l') {
+		ctnsL = true;
 	}
-	else if (ctnsE==true && ctnsL==true && ctnsF==true) {
-		return true;
+	else if (str[pos] == 'f') {
+		ctnsF = true;
 	}
 	else {
-		return false;
-	}
-
-}
-bool elfish2(string str, int pos, bool ctnsE, bool ctnsL, bool ctnsF) {
-	if (ctnsE==false || ctnsL==false || ctnsF==false) {
-		if (pos < 0) {
-			return ctnsE;
-			return ctnsL;
-			return ctnsF;
-		}
-		else if (str[pos] == 'e') {
-			return elfish(str, pos-1, true, ctnsL, ctnsF);
-		}
-		else if (str[pos] == 'l') {
-			return elfish(str, pos-1, ctnsE, true, ctnsF);
-		}
-		else if (str[pos] == 'f') {
-			return elfish(str, pos-1, ctnsE, ctnsL, true);
-		}
-		else {
-			return elfish(str, pos-1, ctnsE, ctnsL, ctnsF);
-		}
+		return elfish2(str, pos-1);
 	}
 	if (ctnsE==true && ctnsL==true && ctnsF==true) {
 		return true;
 	}
 	else {
 		return false;
-	}
-}
-
-bool Einstr(string str, int pos, bool ctnsE) {
-	if (pos < 0) {
-		return ctnsE;
-	}
-	else if (str[pos] == 'e') {
-		return Einstr(str, pos-1, true);
-	}
-	else {
-		return Einstr(str, pos-1, ctnsE);
 	}
 }
 
@@ -247,17 +323,112 @@ bool isPerfect(int num, int factor, int sum) {
 }
 
 // Problem 6
+void printX(int count, int row) {
+	if (row == count*2-1) {
+		printLine(count, row);
+	}
+	else {
+		printLine(count, row);
+		printX(count, row+1);
+	}
+}
+void printLine(int count, int row) {
+	int space, spacebtw;
+	if (row < count) {
+		spacebtw = (2*count-1)-2*row;
+		space = row-1;
+	}
+	else if (row > count) {
+		spacebtw = 2*row-(2*count+1);
+		space = (2*count-1)-row;
+	}
+	else {
+		spacebtw = 0;
+		space = row-1;
+	}
+	for (int i=0; i<=space; i++) {
+		if (i == space) {
+			if (space == count-1) {
+				cout << "";
+			}
+			else {
+				cout << "*";
+			}
+		}
+		else {
+			cout << " ";
+		}
+	}
+	for (int i=0; i<=spacebtw; i++) {
+		if (i == spacebtw) {
+			cout << "*" << endl;
+		}
+		else {
+			cout << " ";
+		}
+	}
+}
 
 
 
 // Part 2:
 // Problem 1
 bool order1(int* x, int* y) {
-	if (*x < *y) {
-		return false;
+	if (*x <= *y) {
+		return true;
 	}
 	else {
-		return true;
+		int z = *x;
+		*x = *y;
+		*y = z;
+		return false;
 	}
 }
 
+// Problem 2
+bool order2(int& x, int& y) {
+	if (x <= y) {
+		return true;
+	}
+	else {
+		int z = x;
+		x = y;
+		y = z;
+		return false;
+	}
+}
+
+// Problem 3
+void printAddressX(int* p) {
+	cout << "The value of the address is: " << *p << "." << endl;
+	cout << "The address in the parameter is: " << p << "." << endl;
+	cout << "The address of the parameter is: " << &p << "." << endl;
+}
+
+// Problem 4
+void printAddressY(int& r) {
+	cout << "The address of the input parameter is: " << &r << "." << endl;
+	cout << "The value of the input parameter is: " << r << "." << endl;
+}
+
+// Problem 5
+void createArr(int arr[20], int len) {
+	for (int i=0; i<len; i++) {
+		arr[i] = rand() % 100;
+	}
+}
+
+// Problem 6
+void printArr(int arr[], int len) {
+	for (int i=0; i<len; i++) {
+		if (i == 0) {
+			cout << "{" << arr[i] << ", ";
+		}
+		else if (i == len-1) {
+			cout << arr[i] << "}" << endl;
+		}
+		else {
+			cout << arr[i] << ", ";
+		}
+	}
+}
