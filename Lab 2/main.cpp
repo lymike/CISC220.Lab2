@@ -407,7 +407,7 @@ int min(int arr[], int final) {
 	}
 }
 
-// Problem 4 (not working)
+// Problem 4
 bool elfish(string str, int pos, bool ctnsE, bool ctnsL, bool ctnsF) {
 	if (pos < 0) {
 		if (ctnsE==true && ctnsL==true && ctnsF==true) {
