@@ -21,7 +21,7 @@ using namespace std;
 
 // Function Declarations
 string reverseStr(string x, int len, string y);
-/* Returns a reversed string of the input string.
+/* Returns a reversed string of the given string.
  * Arguments: x: string as an input.
  * 			  len: the length of the input string in terms of the number of characters within the string.
  * 			  y: the final output of the reversed string, empty by default.
@@ -41,7 +41,15 @@ int min(int arr[], int final);
  * 			  		 index would be 5.
  */
 
-bool elfish2(string str, int pos);
+bool elfish(string str, int pos, bool ctnsE, bool ctnsL, bool ctnsF);
+/* Returns a boolean determining whether the given string contains "e", "l", and "f".
+ * Arguments: str: string as an input.
+ *            pos: the final index of the string passed in. e.g. For the word "leaf" with
+ *                 a length of 4, the final index of this word will be 3.
+ *            ctnsE: a boolean set to true if the input string contains "e", false by default.
+ *            ctnsL: a boolean set to true if the input string contains "l", false by default.
+ *            ctnsF: a boolean set to true if the input string contains "f", false by default.
+ */
 
 bool isPerfect(int num, int factor, int sum);
 /* Returns a boolean determining whether the input integer is a perfect number.
@@ -57,7 +65,7 @@ void printX(int count, int row);
  * 			  row: number of rows being print out, value of 1 by default.
  */
 void printLine(int count, int row);
-//Helper function to be called within the function above.
+// Helper function to be called within the function above.
 
 bool order1(int* x, int* y);
 /* Returns a boolean determining whether the first integer passed in is greater or less than
@@ -105,7 +113,7 @@ void printMin(int arr[], int len, int& val, int& pos);
  * Arguments: arr[]: input array.
  * 			  len: the size of the array passed in.
  * 			  &val: value of the array passed by reference, -1 by default.
- * 			  &pos: position of the array within the array, -1 by default.
+ * 			  &pos: position of the array within the array passed by reference, -1 by default.
  */
 
 void printAddresses(int arr[], int len);
@@ -122,7 +130,7 @@ void printDoubleAddresses(double arr[], int len);
 
 int compareSum(int arrx[], int arry[], int lenx, int leny, int* sumx, int* sumy);
 /* Returns an integer determining whether the sum of the first array is greater than, less than
- * or equal to the second array.
+ * or equal to the second array. Also modifies the sums of the each array.
  * Arguments: arrx[]: first input array.
  *            arry[]: second input array.
  *            lenx: the size of the first array.
@@ -162,9 +170,13 @@ int main() {
 	cout << "Test 3: " << min(arr3, 5) << endl; // Expected output is -1.
 	cout << "****************************************" << endl;
 
-	cout << "Problem 4" << endl; // Not working
-	cout << elfish2("selfish", 6) << endl;
-	cout << elfish2("come", 3) << endl;
+	cout << "Problem 4" << endl;
+	cout << "Test 1: " << elfish("selfish", 6, false, false, false) << endl;
+	// Expected output of 1, meaning true.
+	cout << "Test 2: " << elfish("constantly", 9, false, false, false) << endl;
+	// Expected output of 0, meaning false.
+	cout << "Test 3: " << elfish("leaf", 3, false, false, false) << endl;
+	// Expected output of 1, meaning true.
 	cout << "****************************************" << endl;
 
 	cout << "Problem 5" << endl;
@@ -239,7 +251,7 @@ int main() {
 	cout << "Problem 4" << endl;
 	int y = 14;
 	cout << "Since y=14, the value in y is " << y << ", and the address of y is " << &y << endl;
-	cout << "After passing in the address of y to the function..." << endl;
+	cout << "After passing in the reference of y to the function..." << endl;
 	printAddressY(y);
 	cout << "****************************************" << endl;
 
@@ -354,7 +366,6 @@ int main() {
 	cout << "After the modification, the sum of the first array is: " << sum1_i << endl;
 	cout << "The sum of the second array is: " << sum2_i << endl;
 
-
 	return 0;
 
 }
@@ -397,32 +408,30 @@ int min(int arr[], int final) {
 }
 
 // Problem 4 (not working)
-bool elfish2(string str, int pos) {
-	bool ctnsE=false, ctnsL=false, ctnsF=false;
+bool elfish(string str, int pos, bool ctnsE, bool ctnsL, bool ctnsF) {
 	if (pos < 0) {
-		return ctnsE;
-		return ctnsL;
-		return ctnsF;
+		if (ctnsE==true && ctnsL==true && ctnsF==true) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	else if (str[pos] == 'e') {
-		ctnsE = true;
+		return elfish(str, pos-1, true, ctnsL, ctnsF);
 	}
 	else if (str[pos] == 'l') {
-		ctnsL = true;
+		return elfish(str, pos-1, ctnsE, true, ctnsF);
 	}
 	else if (str[pos] == 'f') {
 		ctnsF = true;
+		return elfish(str, pos-1, ctnsE, ctnsL, true);
 	}
 	else {
-		return elfish2(str, pos-1);
-	}
-	if (ctnsE==true && ctnsL==true && ctnsF==true) {
-		return true;
-	}
-	else {
-		return false;
+		return elfish(str, pos-1, ctnsE, ctnsL, ctnsF);
 	}
 }
+
 
 
 // Problem 5
